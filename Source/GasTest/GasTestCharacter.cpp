@@ -9,6 +9,8 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "AbilitySystem/GasTestAbilitySystemComponent.h"
+#include "AbilitySystem/GasTestAttributeSet.h"
 #include "Engine/LocalPlayer.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
@@ -39,6 +41,8 @@ AGasTestCharacter::AGasTestCharacter()
 	//Mesh1P->SetRelativeRotation(FRotator(0.9f, -19.19f, 5.2f));
 	Mesh1P->SetRelativeLocation(FVector(-30.f, 0.f, -150.f));
 
+	AbilitySystemComponent = CreateDefaultSubobject<UGasTestAbilitySystemComponent>("AbilitySystemComponent");
+	AttributeSet = CreateDefaultSubobject<UGasTestAttributeSet>("AttributeSet");
 }
 
 void AGasTestCharacter::BeginPlay()
@@ -80,7 +84,6 @@ void AGasTestCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 	}
 }
 
-
 void AGasTestCharacter::Move(const FInputActionValue& Value)
 {
 	// input is a Vector2D
@@ -115,4 +118,9 @@ void AGasTestCharacter::SetHasRifle(bool bNewHasRifle)
 bool AGasTestCharacter::GetHasRifle()
 {
 	return bHasRifle;
+}
+
+UAbilitySystemComponent* AGasTestCharacter::GetAbilitySystemComponent() const
+{
+	return AbilitySystemComponent;
 }
